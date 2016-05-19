@@ -1,7 +1,7 @@
 <?php
 
 namespace app\models\departaments;
-
+use yii\helpers\ArrayHelper;
 use Yii;
 
 /**
@@ -51,4 +51,11 @@ class Departaments extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Employees::className(), ['departamentId' => 'id']);
     }
+	
+	public static function getDepartamentList()
+	{
+		$departaments = Departaments::find()->all();
+ 
+		return ArrayHelper::map($departaments, 'id', 'name');
+	}	
 }

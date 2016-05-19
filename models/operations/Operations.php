@@ -1,27 +1,30 @@
 <?php
 
-namespace app\models\employees;
+namespace app\models\operations;
 
 use Yii;
 use app\models\departaments\Departaments;
 
 /**
- * This is the model class for table "employees".
+ * This is the model class for table "operations".
  *
  * @property integer $id
  * @property string $name
  * @property integer $departamentId
+ * @property integer $defaultOp
  *
  * @property Departaments $departament
+ * @property Orderdetails[] $orderdetails
+ * @property Specifications[] $specifications
  */
-class Employees extends \yii\db\ActiveRecord
+class Operations extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'employees';
+        return 'operations';
     }
 
     /**
@@ -31,7 +34,7 @@ class Employees extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'departamentId'], 'required'],
-            [['departamentId'], 'integer'],
+            [['departamentId', 'defaultOp'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['departamentId'], 'exist', 'skipOnError' => true, 'targetClass' => Departaments::className(), 'targetAttribute' => ['departamentId' => 'id']],
         ];
@@ -44,8 +47,9 @@ class Employees extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Ф.И.О.',
+            'name' => 'Наименование',
             'departamentId' => 'Подразделение',
+            'defaultOp' => 'По умолчанию',
         ];
     }
 
@@ -56,5 +60,20 @@ class Employees extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Departaments::className(), ['id' => 'departamentId']);
     }
-		
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrderdetails()
+    {
+        return $this->hasMany(Orderdetails::className(), ['operationId' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSpecifications()
+    {
+        return $this->hasMany(Specifications::className(), ['operationId' => 'id']);
+    }
 }
