@@ -3,7 +3,7 @@
 namespace app\models\products;
 
 use Yii;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "products".
  *
@@ -65,4 +65,12 @@ class Products extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Specifications::className(), ['productId' => 'id']);
     }
+	
+	public static function getProductList()
+	{
+		$products = Products::find()->all();
+ 
+		return ArrayHelper::map($products, 'id', 'name');
+		
+	}
 }

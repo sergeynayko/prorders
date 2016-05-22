@@ -3,6 +3,7 @@
 namespace app\models\operations;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use app\models\departaments\Departaments;
 
 /**
@@ -76,4 +77,12 @@ class Operations extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Specifications::className(), ['operationId' => 'id']);
     }
+	
+	public static function getOperationList()
+	{
+		$operations = Operations::find()->all();
+ 
+		return ArrayHelper::map($operations, 'id', 'name');
+		
+	}
 }
