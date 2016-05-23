@@ -37,7 +37,7 @@ class Specifications extends \yii\db\ActiveRecord
     {
         return [
             [['date', 'operationId', 'productId', 'rate', 'sequence', 'duration'], 'required'],
-            [['date'], 'safe'],
+			[['date'], 'safe'],
             [['operationId', 'productId', 'sequence', 'duration'], 'integer'],
             [['rate'], 'number'],
             [['operationId'], 'exist', 'skipOnError' => true, 'targetClass' => Operations::className(), 'targetAttribute' => ['operationId' => 'id']],

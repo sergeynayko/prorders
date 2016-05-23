@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\operations\Operations;
 use app\models\products\Products;
+use yii\jui\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model app\models\specifications\Specifications */
 /* @var $form yii\widgets\ActiveForm */
@@ -12,14 +13,20 @@ $operations = Operations::getOperationList();
 $paramsOp = ['prompt' => 'Выберите операцию'];
 $products = Products::getProductList();
 $paramsProd = ['prompt' => 'Выберите продукцию'];
-
+if (!$model->date) $model->date = date('Y-m-d');
 ?>
 
 <div class="specifications-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'date')->textInput() ?>
+    <?= $form->field($model, 'date')->widget(DatePicker::className(), 
+		[
+			'options' => ['class' => 'form-control', ],
+			'clientOptions' => ['defaultDate' => date('Y-m-d')],
+			'dateFormat' => 'yyyy-MM-dd',
+			'language'=>'ru',
+		]) ?>
 
     <?= $form->field($model, 'operationId')->dropDownList($operations, $paramsOp) ?>
 
