@@ -3,7 +3,7 @@
 namespace app\models\departaments;
 use yii\helpers\ArrayHelper;
 use Yii;
-
+use app\models\employees\Employees;
 /**
  * This is the model class for table "departaments".
  *
