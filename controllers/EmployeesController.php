@@ -68,7 +68,11 @@ class EmployeesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
-            return $this->render('create', [
+			if (isset(Yii::$app->request->post()['departamentId']))
+			{
+				$model->departamentId = Yii::$app->request->post()['departamentId'];
+			}
+			return $this->render('create', [
                 'model' => $model,
             ]);
         }
@@ -87,6 +91,7 @@ class EmployeesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
+			
             return $this->render('update', [
                 'model' => $model,
             ]);

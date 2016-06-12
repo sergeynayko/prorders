@@ -8,7 +8,8 @@ use app\models\departaments\Departaments;
 /* @var $form yii\widgets\ActiveForm */
 
 $items = Departaments::getDepartamentList();
-$params = ['prompt' => 'Выберите подразделение'];
+$params = ['prompt' => 'Выберите подразделение',];
+  
 ?>
 
 <div class="employees-form">
